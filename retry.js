@@ -1,4 +1,4 @@
-export default (makeRetryableFunction = (
+exports.makeRetryableFunction = (
   callback,
   name,
   retries = 5,
@@ -25,4 +25,4 @@ export default (makeRetryableFunction = (
     }
   };
   return await recursiveFunc(retries);
-});
+};

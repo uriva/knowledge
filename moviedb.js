@@ -6,7 +6,7 @@ exports.init = function() {
 };
 
 const { makeCachedFunction } = require('./cache');
-const makeRetryableFunction = require('./retry');
+const { makeRetryableFunction } = require('./retry');
 
 // Wrapping to make promises instead of callbacks.
 const mdb = (m, q) =>
