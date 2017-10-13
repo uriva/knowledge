@@ -1,5 +1,9 @@
 const TOKEN = require('./tokens').tmdb;
-const mdbLib = require('moviedb')(TOKEN);
+let mdbLib = null;
+
+exports.init = function() {
+  mdbLib = require('moviedb')(TOKEN);
+};
 
 const { makeCachedFunction } = require('./cache');
 const makeRetryableFunction = require('./retry');

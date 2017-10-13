@@ -1,11 +1,12 @@
 const linkPreview = require('./linkPreview');
+const movieDb = require('./moviedb');
 const {
   movieInfo,
   tvInfo,
   searchTv,
   searchMovie,
   getMovieRecommendations,
-  getTvRecommendations
+  getTvRecommendations,
 } = require('./moviedb');
 const { placeInfo, searchPlace, searchWithoutQuery } = require('./places');
 const { bookInfo, searchBook } = require('./books');
@@ -17,6 +18,7 @@ exports.setTokens = function(givenTokens) {
   for (k in givenTokens) {
     tokens[k] = givenTokens[k];
   }
+  movieDb.init();
 };
 exports.setAsyncStorage = function(storage) {
   cache.AsyncStorage = storage;
