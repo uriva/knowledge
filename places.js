@@ -1,7 +1,6 @@
+const { makeCachedFunction } = require('./cache');
 const geolib = require('geolib');
-
 const geolocate = require('./geolocate');
-
 const TOKEN = require('.tokens').gmaps;
 
 const makeUrlWithParams = function(action, params, parseJson) {

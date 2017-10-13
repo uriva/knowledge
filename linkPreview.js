@@ -2,7 +2,7 @@ const LinkPreview = require('react-native-link-preview');
 const getYouTubeID = require('get-youtube-id');
 const { isUri } = require('valid-url');
 
-const makeCachedFunction = require('./cache');
+const { makeCachedFunction } = require('./cache');
 
 exports.getLinkInfo = makeCachedFunction(async link => {
   try {

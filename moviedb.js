@@ -1,7 +1,7 @@
 const TOKEN = require('./tokens').tmdb;
 const mdbLib = require('moviedb')(TOKEN);
 
-const makeCachedFunction = require('./cache');
+const { makeCachedFunction } = require('./cache');
 const makeRetryableFunction = require('./retry');
 
 // Wrapping to make promises instead of callbacks.

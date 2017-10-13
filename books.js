@@ -1,6 +1,6 @@
 const strip = require('strip');
 
-const makeCachedFunction = require('./cache');
+const { makeCachedFunction } = require('./cache');
 const makeRetryableFunction = require('./retry');
 
 const doRequest = function(append) {
