@@ -1,0 +1,13 @@
+{
+  "name": "knowledge",
+  "version": "0.0.1",
+  "scripts": {},
+  "dependencies": {
+    "geolib": "^2.0.22",
+    "get-youtube-id": "^1.0.0",
+    "moviedb": "^0.2.8",
+    "strip": "^3.0.0",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {}
+}
