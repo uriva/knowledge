@@ -1,4 +1,4 @@
 // Override this to give the library a geographical context.
-exports.geolocate = function() {
+exports.get = function() {
   return { coords: null };
 };
