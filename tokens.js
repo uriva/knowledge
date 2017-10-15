@@ -1,4 +1,4 @@
 exports = {
-  gamps: null,
+  gmaps: null,
   tmdb: null
 };
