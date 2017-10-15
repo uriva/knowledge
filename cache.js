@@ -6,9 +6,9 @@ const makeSureCacheIsLoaded = async function() {
   if (cache) {
     return;
   }
+  cache = {};
   if (!exports.AsyncStorage) {
     console.warn('no AsyncStorage provided, cache will not outlive runtime');
-    cache = {};
     return;
   }
   const res = await exports.AsyncStorage.getItem('cache');
