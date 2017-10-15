@@ -6,7 +6,7 @@ const {
   searchTv,
   searchMovie,
   getMovieRecommendations,
-  getTvRecommendations,
+  getTvRecommendations
 } = require('./moviedb');
 const { placeInfo, searchPlace, searchWithoutQuery } = require('./places');
 const { bookInfo, searchBook } = require('./books');
@@ -23,8 +23,8 @@ exports.setTokens = function(givenTokens) {
 exports.setAsyncStorage = function(storage) {
   cache.AsyncStorage = storage;
 };
-exports.setGeolocateFunction = function(geolocate) {
-  geolocate.get = geolocate;
+exports.setGeolocateFunction = function(func) {
+  geolocate.setGeolocate(func);
 };
 
 const TMDB_ATTRIBUTION = {
