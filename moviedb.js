@@ -62,6 +62,7 @@ getRecommendationsWithPage = async (
   return {
     results: getResultsByPopularity(response, 20)
       .map(getBasicInfoFunction)
+      .map(entity => Object.assign(entity, { subtitle: 'Popular now' }))
       .filter(result => !existingIds.includes('' + result.id)),
     moreDataFunction: () =>
       getRecommendationsWithPage(
