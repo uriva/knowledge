@@ -1,6 +1,6 @@
 {
   "name": "knowledge",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {},
   "dependencies": {
     "geolib": "^2.0.22",
