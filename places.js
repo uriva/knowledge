@@ -152,7 +152,7 @@ const searchWithParams = async (existingEntities, params) =>
 exports.searchWithoutQuery = async existingEntities => {
   const location = getLocationParam();
   const ret = getResultsWithNextPageFunction(
-    await innerSearchPlace(null, location),
+    await innerSearchPlace('', location),
     existingEntities,
     { type: 'restaurant', location }
   );
