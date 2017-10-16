@@ -1,7 +1,7 @@
 let mdbLib = null;
 
 exports.init = function() {
-  mdbLib = require('moviedb')(require('./tokens').tmdb);
+  mdbLib = require('moviedb')(require('./tokens').tokens.tmdb);
 };
 
 const { makeCachedFunction } = require('./cache');

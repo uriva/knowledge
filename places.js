@@ -1,7 +1,11 @@
 const { makeCachedFunction } = require('./cache');
 const geolib = require('geolib');
 const geolocate = require('./geolocate');
-const TOKEN = require('./tokens').gmaps;
+let TOKEN;
+
+exports.init = function() {
+  TOKEN = require('./tokens').tokens.gmaps;
+};
 
 const makeUrlWithParams = function(action, params, parseJson) {
   const searchParams = ['key=' + TOKEN];
@@ -147,9 +151,13 @@ const searchWithParams = async (existingEntities, params) =>
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCCQr7iOj-Iy4szW84s0f1jo1MBknJ1_Ws&location=32.0853%2C34.7818&type=restaurant
 exports.searchWithoutQuery = async existingEntities => {
   const location = getLocationParam();
-  return getResultsWithNextPageFunction(
+  const ret = getResultsWithNextPageFunction(
     await innerSearchPlace(null, location),
     existingEntities,
     { type: 'restaurant', location }
   );
+  ret.results = ret.results.map(result =>
+    Object.assign(result, { subtitle: 'Near you' })
+  );
+  return ret;
 };

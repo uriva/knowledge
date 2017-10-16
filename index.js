@@ -1,5 +1,6 @@
 const linkPreview = require('./linkPreview');
 const movieDb = require('./moviedb');
+const places = require('./places');
 const {
   movieInfo,
   tvInfo,
@@ -15,11 +16,11 @@ const geolocate = require('./geolocate');
 const tokens = require('./tokens');
 
 exports.setTokens = function(givenTokens) {
-  for (k in givenTokens) {
-    tokens[k] = givenTokens[k];
-  }
+  tokens.setTokens(givenTokens);
   movieDb.init();
+  places.init();
 };
+
 exports.setAsyncStorage = function(storage) {
   cache.AsyncStorage = storage;
 };
