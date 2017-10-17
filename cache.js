@@ -37,7 +37,6 @@ exports.makeCachedFunction = (
     Date.now() > ttl + cache[name][paramsString].time
   ) {
     // Not in cache / invalidated.
-    console.log('cache-miss', name);
 
     // Make sure only one call is issued.
     const promise = callback(...params);
@@ -49,7 +48,9 @@ exports.makeCachedFunction = (
     try {
       const res = await promise;
       Object.assign(cache[name][paramsString], { res, ttl });
-      exports.AsyncStorage.setItem('cache', JSON.stringify(cache));
+      if (exports.AsyncStorage) {
+        exports.AsyncStorage.setItem('cache', JSON.stringify(cache));
+      }
       return res;
     } catch (err) {
       cache[name][paramsString] = null;
@@ -58,6 +59,5 @@ exports.makeCachedFunction = (
   }
 
   // In cache.
-  console.log('cache-hit', name);
   return cache[name][paramsString].res || cache[name][paramsString].promise;
 };
