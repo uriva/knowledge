@@ -49,7 +49,9 @@ exports.makeCachedFunction = (
     try {
       const res = await promise;
       Object.assign(cache[name][paramsString], { res, ttl });
-      exports.AsyncStorage.setItem('cache', JSON.stringify(cache));
+      if (exports.AsyncStorage) {
+        exports.AsyncStorage.setItem('cache', JSON.stringify(cache));
+      }
       return res;
     } catch (err) {
       cache[name][paramsString] = null;
