@@ -24,6 +24,9 @@ exports.setTokens = function(givenTokens) {
 exports.setAsyncStorage = function(storage) {
   cache.AsyncStorage = storage;
 };
+exports.setCacheTtl = function(ttl) {
+  cache.ttl = ttl;
+};
 exports.setGeolocateFunction = function(func) {
   geolocate.setGeolocate(func);
 };
