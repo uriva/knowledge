@@ -37,6 +37,7 @@ exports.makeCachedFunction = (
     Date.now() > ttl + cache[name][paramsString].time
   ) {
     // Not in cache / invalidated.
+    console.log('cache-miss', name);
 
     // Make sure only one call is issued.
     const promise = callback(...params);
@@ -59,5 +60,6 @@ exports.makeCachedFunction = (
   }
 
   // In cache.
+  console.log('cache-hit', name);
   return cache[name][paramsString].res || cache[name][paramsString].promise;
 };
