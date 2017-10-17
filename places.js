@@ -148,11 +148,11 @@ const searchWithParams = async (existingEntities, params) =>
   );
 
 // Response example:
-// https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCCQr7iOj-Iy4szW84s0f1jo1MBknJ1_Ws&location=32.0853%2C34.7818&type=restaurant
+// https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
 exports.searchWithoutQuery = async existingEntities => {
   const location = getLocationParam();
   const ret = getResultsWithNextPageFunction(
-    await innerSearchPlace(null, location),
+    await innerSearchPlace('', location),
     existingEntities,
     { type: 'restaurant', location }
   );
