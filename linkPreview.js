@@ -4,9 +4,14 @@ const { isUri } = require('valid-url');
 
 const { makeCachedFunction } = require('./cache');
 
-exports.getLinkInfo = makeCachedFunction(async link => {
+const cachedGetLinkInfo = makeCachedFunction(
+  LinkPreview.getPreview,
+  'linkGetPreview'
+);
+
+exports.getLinkInfo = async link => {
   try {
-    const res = await LinkPreview.getPreview(link);
+    const res = await cachedGetLinkInfo(link);
     // We rename some of the fields to conform to all other id-to-entity
     // functions.
     return {
@@ -21,7 +26,6 @@ exports.getLinkInfo = makeCachedFunction(async link => {
       locationComplete: true
     };
   } catch (err) {
-    console.error('failed getting link info', err);
     return {
       id: link,
       category: 'links',
@@ -30,7 +34,7 @@ exports.getLinkInfo = makeCachedFunction(async link => {
       locationComplete: true
     };
   }
-}, 'link');
+};
 
 exports.searchLink = async query => {
   const parts = query.match(/\S+/g) || [];

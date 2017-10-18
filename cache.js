@@ -18,7 +18,10 @@ exports.makeCachedFunction = (callback, name, importantParamsIndexes) => async (
     return promises[keyString];
   }
 
-  const record = await exports.AsyncStorage.getItem(keyString);
+  let record = await exports.AsyncStorage.getItem(keyString);
+  if (record) {
+    record = JSON.parse(record);
+  }
 
   const now = Date.now();
 
