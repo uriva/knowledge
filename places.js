@@ -39,7 +39,7 @@ const doRequest = function(action, params, parseJson = true) {
 };
 
 // Response example:
-// https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=maxwidth=400
+// https://maps.googleapis.com/maps/api/place/photo?key=API_KEY&maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU
 const getPictureSource = (result, maxwidth = 500) =>
   result.photos && result.photos.length
     ? makeUrlWithParams(
@@ -67,7 +67,7 @@ const createDescription = (result, location) => {
 const cachedPlaceInfo = makeCachedFunction(doRequest, 'placeInfoDetails');
 
 // Response example:
-// https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyCCQr7iOj-Iy4szW84s0f1jo1MBknJ1_Ws&placeid=ChIJEScAUn9MHRURzG4ggK8ID4Y
+// https://maps.googleapis.com/maps/api/place/details/json?key=API_KEY&placeid=ChIJEScAUn9MHRURzG4ggK8ID4Y
 exports.placeInfo = async placeid => {
   const currentLocation = geolocate.get();
   const placeInfoResponse = await cachedPlaceInfo('details', { placeid });
