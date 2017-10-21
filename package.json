@@ -1,6 +1,6 @@
 {
   "name": "knowledge",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "scripts": {},
   "dependencies": {
     "cross-fetch": "0.0.8",
