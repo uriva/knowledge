@@ -101,7 +101,7 @@ exports.categories = {
     askForMoreFiller: 'Looking for new vegan options!',
     idToEntityFunction: id => placeInfo(id, 'restaurants'),
     entityQueryFunction: query =>
-      searchPlace({ query, type: 'restaurant', category: 'resturants' }),
+      searchPlace({ query, type: 'restaurant', category: 'restaurants' }),
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
@@ -109,7 +109,7 @@ exports.categories = {
       searchWithoutQuery({
         excludedPlaces,
         type: 'restaurant',
-        category: 'resturants'
+        category: 'restaurants'
       }),
     emptyQueueAddEntityText:
       'Try typing a restaurant name. E.g., "Lia\'s Kitchen"'
