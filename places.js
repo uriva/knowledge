@@ -157,8 +157,8 @@ const basicSearch = async (query, location, type, excludedPlaces, category) =>
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
-exports.searchPlace = ({ query, type, category }) =>
-  basicSearch(query, getLocationParam(), type, [], category).results;
+exports.searchPlace = async ({ query, type, category }) =>
+  (await basicSearch(query, getLocationParam(), type, [], category)).results;
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
