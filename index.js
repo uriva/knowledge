@@ -120,7 +120,7 @@ exports.categories = {
     plural: 'Places',
     queueTitle: 'Places to go',
     iconFamily: 'MaterialIcons',
-    icon: 'pin',
+    icon: 'place',
     emoji: '📍',
     askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
     idToEntityFunction: id => placeInfo(id, 'places'),
