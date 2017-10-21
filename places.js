@@ -163,7 +163,7 @@ exports.searchPlace = ({ query, type, category }) =>
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
 exports.searchWithoutQuery = async ({ excludedPlaces, type, category }) => {
-  const ret = basicSearch(
+  const ret = await basicSearch(
     '',
     getLocationParam(),
     type,
