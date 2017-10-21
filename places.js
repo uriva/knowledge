@@ -121,12 +121,12 @@ const getLocationParam = () => {
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&type=restaurant&pagetoken=CpQCBwEAAGjYNql6iKPC2kOaCtS4Lc4tyj42ak9WZy2h6isCJWEUY9TQUpAh1Vwf35M0MC2qf9l1zJVgrnEqIt5GPYaM3dw2EiwgM1EEr--upS0FoKvv94jN3ACJVYTmrgA0SzguL-Np4AkJ704ngw1wKfdMaWvbvjVEiBlA3OUtPY3-zrichl-JaMerl0d_1FHzyRnyxBYWuKEEG-3S6FjaQOh-0Ks4lekJZiYW6NhD2QX3OVDFMNlpGs-88j-_3KT4AnUqzoC6KjUnE4GCY2-BdTGPW6hmNCXq2XIYtpsQ3xquT7iJb_C5N1lOSZebR-DLbwrDS7zkw_yDgapqr-yoeqVK0Jt9tBEeHGups2fnaovL1CEkEhDfhtVHsmK1rSaqt9sHrELRGhToqlUePY-ABMZgIprHyJtxaKTFNg
 const basicSearchHelperRecursion = (
   response,
-  excludePlaces,
+  excludedPlaces,
   params,
   category
 ) => ({
   results: mapSearchResultsToEntities(response, 20, category).filter(
-    result => !excludePlaces.map(entity => entity.id).includes(result)
+    result => !excludedPlaces.map(entity => entity.id).includes(result)
   ),
   moreDataFunction: async () =>
     basicSearchHelperRecursion(
@@ -134,7 +134,7 @@ const basicSearchHelperRecursion = (
         ...params,
         pagetoken: response.next_page_token
       }),
-      excludePlaces,
+      excludedPlaces,
       params,
       category
     )
