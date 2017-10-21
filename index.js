@@ -114,29 +114,29 @@ exports.categories = {
     emptyQueueAddEntityText:
       'Try typing a restaurant name. E.g., "Lia\'s Kitchen"'
   },
-  // places: {
-  //   singular: 'Place',
-  //   visibleName: 'Places',
-  //   plural: 'Places',
-  //   queueTitle: 'Places to go',
-  //   iconFamily: 'MaterialIcons',
-  //   icon: 'pin',
-  //   emoji: '📍',
-  //   askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
-  //   idToEntityFunction: id => placeInfo(id, 'places'),
-  //   entityQueryFunction: query =>
-  //     searchPlace({ query, type: '', category: 'places' }),
-  //   itemsNeedLocation: true,
-  //   useNativeLinking: true,
-  //   attribution: GOOGLE_ATTRIBUTION,
-  //   zeroPrefixFunction: excludedPlaces =>
-  //     searchWithoutQuery({
-  //       excludedPlaces,
-  //       type: 'museum|night_club|park',
-  //       category: 'places'
-  //     }),
-  //   emptyQueueAddEntityText: 'Try typing a place name. E.g., "Eiffel tower"'
-  // },
+  places: {
+    singular: 'Place',
+    visibleName: 'Places',
+    plural: 'Places',
+    queueTitle: 'Places to go',
+    iconFamily: 'MaterialIcons',
+    icon: 'pin',
+    emoji: '📍',
+    askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
+    idToEntityFunction: id => placeInfo(id, 'places'),
+    entityQueryFunction: query =>
+      searchPlace({ query, type: '', category: 'places' }),
+    itemsNeedLocation: true,
+    useNativeLinking: true,
+    attribution: GOOGLE_ATTRIBUTION,
+    zeroPrefixFunction: excludedPlaces =>
+      searchWithoutQuery({
+        excludedPlaces,
+        type: 'museum|night_club|park',
+        category: 'places'
+      }),
+    emptyQueueAddEntityText: 'Try typing a place name. E.g., "Eiffel tower"'
+  },
   links: {
     singular: 'Link',
     visibleName: 'Links',
