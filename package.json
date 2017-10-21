@@ -3,6 +3,7 @@
   "version": "0.0.9",
   "scripts": {},
   "dependencies": {
+    "cross-fetch": "0.0.8",
     "geolib": "^2.0.22",
     "get-youtube-id": "^1.0.0",
     "moviedb": "^0.2.8",

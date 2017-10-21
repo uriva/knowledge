@@ -1,6 +1,7 @@
 const { makeCachedFunction } = require('./cache');
 const geolib = require('geolib');
 const geolocate = require('./geolocate');
+const fetch = require('cross-fetch');
 let TOKEN;
 
 exports.init = function() {
