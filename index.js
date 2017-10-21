@@ -50,7 +50,7 @@ exports.categories = {
     singular: 'Movie',
     visibleName: 'Movies',
     plural: 'Movies',
-    queueTitle: 'Movies to Watch',
+    queueTitle: 'Movies to watch',
     icon: 'local-movies',
     emoji: '🎥',
     iconFamily: 'MaterialIcons',
@@ -65,7 +65,7 @@ exports.categories = {
     singular: 'Show',
     visibleName: 'TV',
     plural: 'Shows',
-    queueTitle: 'TV Shows to Binge',
+    queueTitle: 'TV Shows to binge',
     icon: 'tv',
     emoji: '📺',
     iconFamily: 'Entypo',
@@ -80,7 +80,7 @@ exports.categories = {
     singular: 'Book',
     visibleName: 'Books',
     plural: 'Books',
-    queueTitle: 'Books to Read',
+    queueTitle: 'Books to read',
     icon: 'open-book',
     emoji: '📚',
     iconFamily: 'Entypo',
@@ -94,25 +94,54 @@ exports.categories = {
     singular: 'Restaurant',
     visibleName: 'Restaurants',
     plural: 'Restaurants',
-    queueTitle: 'Restaurants to Dine in',
+    queueTitle: 'Restaurants to dine in',
     iconFamily: 'MaterialIcons',
     icon: 'restaurant-menu',
     emoji: '🍽️',
     askForMoreFiller: 'Looking for new vegan options!',
-    idToEntityFunction: placeInfo,
-    entityQueryFunction: searchPlace,
+    idToEntityFunction: id => placeInfo(id, 'restaurants'),
+    entityQueryFunction: query =>
+      searchPlace({ query, type: 'restaurant', category: 'resturants' }),
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
-    zeroPrefixFunction: searchWithoutQuery,
+    zeroPrefixFunction: excludedPlaces =>
+      searchWithoutQuery({
+        excludedPlaces,
+        type: 'restaurant',
+        category: 'resturants'
+      }),
     emptyQueueAddEntityText:
       'Try typing a restaurant name. E.g., "Lia\'s Kitchen"'
+  },
+  places: {
+    singular: 'Place',
+    visibleName: 'Places',
+    plural: 'Places',
+    queueTitle: 'Places to go',
+    iconFamily: 'MaterialIcons',
+    icon: 'pin',
+    emoji: '📍',
+    askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
+    idToEntityFunction: id => placeInfo(id, 'places'),
+    entityQueryFunction: query =>
+      searchPlace({ query, type: '', category: 'places' }),
+    itemsNeedLocation: true,
+    useNativeLinking: true,
+    attribution: GOOGLE_ATTRIBUTION,
+    zeroPrefixFunction: excludedPlaces =>
+      searchWithoutQuery({
+        excludedPlaces,
+        type: 'museum|night_club|park',
+        category: 'places'
+      }),
+    emptyQueueAddEntityText: 'Try typing a place name. E.g., "Eiffel tower"'
   },
   links: {
     singular: 'Link',
     visibleName: 'Links',
     plural: 'Links',
-    queueTitle: 'Links to Kill Time',
+    queueTitle: 'Links to kill time',
     icon: 'link',
     emoji: '🔗',
     iconFamily: 'Entypo',

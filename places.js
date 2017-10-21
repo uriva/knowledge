@@ -76,7 +76,7 @@ const cachedPlaceInfo = makeCachedFunction(doRequest, 'placeInfoDetails');
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/details/json?key=API_KEY&placeid=ChIJEScAUn9MHRURzG4ggK8ID4Y
-exports.placeInfo = async placeid => {
+exports.placeInfo = async (placeid, category) => {
   const { result } = await cachedPlaceInfo('details', { placeid });
   if (!result) {
     return Promise.reject();
@@ -85,7 +85,7 @@ exports.placeInfo = async placeid => {
   return {
     id: placeid,
     title: result.name,
-    category: 'restaurants',
+    category,
     link: result.url,
     locationComplete: currentLocation.coords,
     description: createDescription(result, currentLocation),
@@ -94,13 +94,13 @@ exports.placeInfo = async placeid => {
   };
 };
 
-const mapSearchResultsToEntities = (response, limit) =>
+const mapSearchResultsToEntities = (response, limit, category) =>
   !response.results
     ? []
     : response.results.slice(0, limit || 5).map(result => ({
         id: result.place_id,
         title: result.name,
-        category: 'restaurants',
+        category,
         description: createDescription(result, geolocate.get()),
         bigPictureSource: getPictureSource(result),
         smallPictureSource: getPictureSource(result, 100)
@@ -115,48 +115,59 @@ const getLocationParam = () => {
     : undefined;
 };
 
-const innerSearchPlace = async (query, location) => {
-  return await doRequest('textsearch', {
-    location,
-    query,
-    type: 'restaurant'
-  });
-
-  return response;
-};
-
-// Response example:
-// https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
-exports.searchPlace = async query =>
-  mapSearchResultsToEntities(await innerSearchPlace(query, getLocationParam()));
-
 // Returns an object with processed results, filtered against excludedPlaces and a recursion call for next pages.
 // Example URL for next_page_token usage:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&type=restaurant&pagetoken=CpQCBwEAAGjYNql6iKPC2kOaCtS4Lc4tyj42ak9WZy2h6isCJWEUY9TQUpAh1Vwf35M0MC2qf9l1zJVgrnEqIt5GPYaM3dw2EiwgM1EEr--upS0FoKvv94jN3ACJVYTmrgA0SzguL-Np4AkJ704ngw1wKfdMaWvbvjVEiBlA3OUtPY3-zrichl-JaMerl0d_1FHzyRnyxBYWuKEEG-3S6FjaQOh-0Ks4lekJZiYW6NhD2QX3OVDFMNlpGs-88j-_3KT4AnUqzoC6KjUnE4GCY2-BdTGPW6hmNCXq2XIYtpsQ3xquT7iJb_C5N1lOSZebR-DLbwrDS7zkw_yDgapqr-yoeqVK0Jt9tBEeHGups2fnaovL1CEkEhDfhtVHsmK1rSaqt9sHrELRGhToqlUePY-ABMZgIprHyJtxaKTFNg
-const getResultsWithNextPageFunction = (response, excludePlaces, params) => ({
-  results: mapSearchResultsToEntities(response, 20).filter(
+const basicSearchHelperRecursion = (
+  response,
+  excludePlaces,
+  params,
+  category
+) => ({
+  results: mapSearchResultsToEntities(response, 20, category).filter(
     result => !excludePlaces.map(entity => entity.id).includes(result)
   ),
   moreDataFunction: async () =>
-    getResultsWithNextPageFunction(
+    basicSearchHelperRecursion(
       await doRequest('textsearch', {
         ...params,
         pagetoken: response.next_page_token
       }),
       excludePlaces,
-      params
+      params,
+      category
     )
 });
 
+const basicSearch = async (query, location, type, excludedPlaces, category) =>
+  basicSearchHelperRecursion(
+    await doRequest('textsearch', {
+      location,
+      query,
+      type
+    }),
+    excludedPlaces,
+    {
+      query,
+      location
+    },
+    category
+  );
+
+// Response example:
+// https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
+exports.searchPlace = ({ query, type, category }) =>
+  basicSearch(query, getLocationParam(), type, [], category).results;
+
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
-exports.searchWithoutQuery = async excludePlaces => {
-  const location = getLocationParam();
-  const results = await innerSearchPlace('', location);
-  const ret = getResultsWithNextPageFunction(
-    results,
-    excludePlaces,
-    { type: 'restaurant', location }
+exports.searchWithoutQuery = async ({ excludePlaces, type, category }) => {
+  const ret = basicSearch(
+    '',
+    getLocationParam(),
+    type,
+    excludedPlaces,
+    category
   );
   ret.results = ret.results.map(result => ({
     ...result,
