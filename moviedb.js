@@ -26,8 +26,8 @@ const bigPosterUrl = posterPath => getPosterUrl(posterPath, 'w500');
 const getBasicInfo = res => ({
   id: res.id,
   description: res.overview,
-  smallPictureSource: smallPosterUrl(res.poster_path),
-  bigPictureSource: bigPosterUrl(res.poster_path),
+  smallPictureSource: smallPosterUrl(res.backdrop_path),
+  bigPictureSource: bigPosterUrl(res.backdrop_path),
   locationComplete: true
 });
 
