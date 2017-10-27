@@ -90,6 +90,7 @@ exports.placeInfo = async (placeid, category) => {
     link: result.url,
     locationComplete: currentLocation.coords,
     description: createDescription(result, currentLocation),
+    location: result.geometry.location,
     bigPictureSource: getPictureSource(result),
     smallPictureSource: getPictureSource(result, 100)
   };
@@ -103,6 +104,7 @@ const mapSearchResultsToEntities = (response, limit, category) =>
         title: result.name,
         category,
         description: createDescription(result, geolocate.get()),
+        location: result.geometry.location,
         bigPictureSource: getPictureSource(result),
         smallPictureSource: getPictureSource(result, 100)
       }));
