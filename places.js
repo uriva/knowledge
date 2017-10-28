@@ -124,11 +124,15 @@ const getLocationParam = () => {
 const basicSearchHelperRecursion = (
   response,
   excludedPlaces,
+  excludedTypes,
   params,
   category
 ) => ({
   results: mapSearchResultsToEntities(response, 20, category).filter(
-    result => !excludedPlaces.map(entity => entity.id).includes(result)
+    result =>
+      !excludedTypes.some(excludedType =>
+        result.types.includes(excludedType)
+      ) && !excludedPlaces.map(entity => entity.id).includes(result)
   ),
   moreDataFunction: async () =>
     basicSearchHelperRecursion(
@@ -142,14 +146,22 @@ const basicSearchHelperRecursion = (
     )
 });
 
-const basicSearch = async (query, location, type, excludedPlaces, category) =>
+const basicSearch = async (
+  query,
+  location,
+  types,
+  excludedTypes,
+  excludedPlaces,
+  category
+) =>
   basicSearchHelperRecursion(
     await doRequest('textsearch', {
       location,
       query,
-      type
+      type: types.join(',')
     }),
     excludedPlaces,
+    excludedTypes,
     {
       query,
       location
@@ -159,16 +171,29 @@ const basicSearch = async (query, location, type, excludedPlaces, category) =>
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
-exports.searchPlace = async ({ query, type, category }) =>
-  (await basicSearch(query, getLocationParam(), type, [], category)).results;
+exports.searchPlace = async ({ query, types, excludedTypes, category }) =>
+  (await basicSearch(
+    query,
+    getLocationParam(),
+    types,
+    excludedTypes,
+    [],
+    category
+  )).results;
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
-exports.searchWithoutQuery = async ({ excludedPlaces, type, category }) => {
+exports.searchWithoutQuery = async ({
+  excludedPlaces,
+  types,
+  excludedTypes,
+  category
+}) => {
   const ret = await basicSearch(
     '',
     getLocationParam(),
-    type,
+    types,
+    excludedTypes,
     excludedPlaces,
     category
   );

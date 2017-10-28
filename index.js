@@ -112,7 +112,7 @@ exports.categories = {
     zeroPrefixFunction: excludedPlaces =>
       searchWithoutQuery({
         excludedPlaces,
-        type: 'restaurant',
+        types: ['restaurant'],
         category: 'restaurants'
       }),
     emptyQueueAddEntityText:
@@ -136,7 +136,8 @@ exports.categories = {
     zeroPrefixFunction: excludedPlaces =>
       searchWithoutQuery({
         excludedPlaces,
-        type: 'museum|night_club|park',
+        types: ['museum', 'night_club', 'park'],
+        excludedTypes: ['restaurants'],
         category: 'places'
       }),
     emptyQueueAddEntityText: 'Try typing a place name. E.g., "Eiffel tower"'
