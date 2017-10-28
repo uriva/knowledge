@@ -96,18 +96,26 @@ exports.placeInfo = async (placeid, category) => {
   };
 };
 
-const mapSearchResultsToEntities = (response, limit, category) =>
+const mapSearchResultsToEntities = (response, limit, category, excludedTypes) =>
   !response.results
     ? []
-    : response.results.slice(0, limit || 5).map(result => ({
-        id: result.place_id,
-        title: result.name,
-        category,
-        description: createDescription(result, geolocate.get()),
-        location: result.geometry.location,
-        bigPictureSource: getPictureSource(result),
-        smallPictureSource: getPictureSource(result, 100)
-      }));
+    : response.results
+        .filter(
+          result =>
+            !excludedTypes.some(excludedType =>
+              result.types.includes(excludedType)
+            )
+        )
+        .slice(0, limit || 5)
+        .map(result => ({
+          id: result.place_id,
+          title: result.name,
+          category,
+          description: createDescription(result, geolocate.get()),
+          location: result.geometry.location,
+          bigPictureSource: getPictureSource(result),
+          smallPictureSource: getPictureSource(result, 100)
+        }));
 
 const getLocationParam = () => {
   const currentLocation = geolocate.get();
@@ -128,12 +136,12 @@ const basicSearchHelperRecursion = (
   params,
   category
 ) => ({
-  results: mapSearchResultsToEntities(response, 20, category).filter(
-    result =>
-      !excludedTypes.some(excludedType =>
-        result.types.includes(excludedType)
-      ) && !excludedPlaces.map(entity => entity.id).includes(result)
-  ),
+  results: mapSearchResultsToEntities(
+    response,
+    20,
+    category,
+    excludedTypes
+  ).filter(result => !excludedPlaces.map(entity => entity.id).includes(result)),
   moreDataFunction: async () =>
     basicSearchHelperRecursion(
       await doRequest('textsearch', {
