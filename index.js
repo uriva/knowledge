@@ -105,7 +105,12 @@ exports.categories = {
     askForMoreFiller: 'Looking for new vegan options!',
     idToEntityFunction: id => placeInfo(id, 'restaurants'),
     entityQueryFunction: query =>
-      searchPlace({ query, type: 'restaurant', category: 'restaurants' }),
+      searchPlace({
+        query,
+        types: ['restaurant'],
+        excludedTypes: [],
+        category: 'restaurants'
+      }),
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
@@ -113,6 +118,7 @@ exports.categories = {
       searchWithoutQuery({
         excludedPlaces,
         types: ['restaurant'],
+        excludedTypes: [],
         category: 'restaurants'
       }),
     emptyQueueAddEntityText:
@@ -129,7 +135,12 @@ exports.categories = {
     askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
     idToEntityFunction: id => placeInfo(id, 'places'),
     entityQueryFunction: query =>
-      searchPlace({ query, type: '', category: 'places' }),
+      searchPlace({
+        query,
+        types: [],
+        category: 'places',
+        excludedTypes: ['restaurants']
+      }),
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
