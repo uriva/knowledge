@@ -149,6 +149,7 @@ const basicSearchHelperRecursion = (
         pagetoken: response.next_page_token
       }),
       excludedPlaces,
+      excludedTypes,
       params,
       category
     )
