@@ -167,7 +167,7 @@ const basicSearch = async (
     await doRequest('textsearch', {
       location,
       query,
-      type: types.join(',')
+      type: types.join('|')
     }),
     excludedPlaces,
     excludedTypes,
