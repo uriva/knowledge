@@ -20,7 +20,6 @@ exports.getLinkInfo = async link => {
       link: res.url,
       title: res.title,
       ytId: getYouTubeID(link, { fuzzy: false }),
-      description: res.description,
       smallPictureSource: res.images.length ? res.images[0] : null,
       bigPictureSource: res.images.length ? res.images[0] : null,
       locationComplete: true
