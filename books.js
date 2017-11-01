@@ -30,6 +30,20 @@ const getTitle = volInfo => {
   return author + volInfo.title;
 };
 
+const getDescription = volInfo => {
+  let ret = '';
+  if (volInfo.publishedDate) {
+    ret = `Published ${volInfo.publishedDate.substring(0, 4)}`;
+  }
+  if (volInfo.pageCount) {
+    if (!!ret) {
+      ret += ', ';
+    }
+    ret += `${volInfo.pageCount} pages`;
+  }
+  return ret;
+};
+
 // https://www.googleapis.com/books/v1/volumes/s1gVAAAAYAAJ
 exports.bookInfo = makeCachedFunction(
   makeRetryableFunction(
@@ -41,7 +55,7 @@ exports.bookInfo = makeCachedFunction(
           title: getTitle(volInfo),
           category: 'books',
           link: bookInfo.accessInfo.webReaderLink,
-          description: strip(volInfo.description),
+          description: getDescription(volInfo),
           bigPictureSource:
             volInfo.imageLinks && switchToHttps(volInfo.imageLinks.medium),
           smallPictureSource:
