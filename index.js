@@ -63,7 +63,8 @@ exports.categories = {
     entityQueryFunction: searchMovie,
     zeroPrefixFunction: getMovieRecommendations,
     attribution: TMDB_ATTRIBUTION,
-    emptyQueueAddEntityText: 'Try typing a movie name. E.g., "Avatar"'
+    emptyQueueAddEntityText: 'A movie you want to watch',
+    emptyLovedAddEntityText: 'Your favorite movie'
   },
   tv: {
     singular: 'Show',
@@ -78,7 +79,8 @@ exports.categories = {
     entityQueryFunction: searchTv,
     attribution: TMDB_ATTRIBUTION,
     zeroPrefixFunction: getTvRecommendations,
-    emptyQueueAddEntityText: 'Try typing a tv show name. E.g., "Fargo"'
+    emptyQueueAddEntityText: 'A TV show to binge',
+    emptyLovedAddEntityText: 'Your favorite TV show'
   },
   books: {
     singular: 'Book',
@@ -92,7 +94,8 @@ exports.categories = {
     idToEntityFunction: bookInfo,
     entityQueryFunction: searchBook,
     attribution: GOOGLE_ATTRIBUTION,
-    emptyQueueAddEntityText: 'Try typing a book name. E.g., "Shantaram"'
+    emptyQueueAddEntityText: 'A book you want to read',
+    emptyLovedAddEntityText: 'Your favorite book'
   },
   restaurants: {
     singular: 'Restaurant',
@@ -121,8 +124,8 @@ exports.categories = {
         excludedTypes: [],
         category: 'restaurants'
       }),
-    emptyQueueAddEntityText:
-      'Try typing a restaurant name. E.g., "Lia\'s Kitchen"'
+    emptyQueueAddEntityText: 'A restaurnat you want to eat in',
+    emptyLovedAddEntityText: 'A restaurnat you love'
   },
   places: {
     singular: 'Place',
@@ -151,7 +154,8 @@ exports.categories = {
         excludedTypes: ['restaurants'],
         category: 'places'
       }),
-    emptyQueueAddEntityText: 'Try typing a place name. E.g., "Eiffel tower"'
+    emptyQueueAddEntityText: 'A place you want to go to',
+    emptyLovedAddEntityText: 'your favorite location'
   },
   links: {
     singular: 'Link',
@@ -164,6 +168,7 @@ exports.categories = {
     idToEntityFunction: linkPreview.getLinkInfo,
     askForMoreFiller: 'Looking for interesting articles',
     entityQueryFunction: linkPreview.searchLink,
-    emptyQueueAddEntityText: 'Try searching for a link using the search button'
+    emptyQueueAddEntityText: 'Paste a link to check out later',
+    emptyLovedAddEntityText: 'Paste your favorite link'
   }
 };
