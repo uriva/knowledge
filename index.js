@@ -72,7 +72,7 @@ exports.categories = {
     queueTitle: 'TV Shows to binge',
     icon: 'tv',
     emoji: '📺',
-    iconFamily: 'FontAwesome',
+    iconFamily: 'MaterialIcons',
     askForMoreFiller: "I'm in need of something light and funny!",
     idToEntityFunction: tvInfo,
     entityQueryFunction: searchTv,
