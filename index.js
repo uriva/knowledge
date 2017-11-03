@@ -63,8 +63,8 @@ exports.categories = {
     entityQueryFunction: searchMovie,
     zeroPrefixFunction: getMovieRecommendations,
     attribution: TMDB_ATTRIBUTION,
-    emptyQueueAddEntityText: 'A movie you want to watch',
-    emptyLovedAddEntityText: 'Your favorite movie'
+    emptyQueueAddEntityText: 'Add a movie you want to watch',
+    emptyLovedAddEntityText: 'Add your favorite movie'
   },
   tv: {
     singular: 'Show',
@@ -73,14 +73,16 @@ exports.categories = {
     queueTitle: 'TV Shows to binge',
     icon: 'tv',
     emoji: '📺',
-    iconFamily: 'MaterialIcons',
+    iconFamily: 'Feather',
+    iconSize: 20,
+    iconOpacity: 0.8,
     askForMoreFiller: "I'm in need of something light and funny!",
     idToEntityFunction: tvInfo,
     entityQueryFunction: searchTv,
     attribution: TMDB_ATTRIBUTION,
     zeroPrefixFunction: getTvRecommendations,
-    emptyQueueAddEntityText: 'A TV show to binge',
-    emptyLovedAddEntityText: 'Your favorite TV show'
+    emptyQueueAddEntityText: 'Add a TV show to binge',
+    emptyLovedAddEntityText: 'Add your favorite TV show'
   },
   books: {
     singular: 'Book',
@@ -94,8 +96,8 @@ exports.categories = {
     idToEntityFunction: bookInfo,
     entityQueryFunction: searchBook,
     attribution: GOOGLE_ATTRIBUTION,
-    emptyQueueAddEntityText: 'A book you want to read',
-    emptyLovedAddEntityText: 'Your favorite book'
+    emptyQueueAddEntityText: 'Add a book you want to read',
+    emptyLovedAddEntityText: 'Add your favorite book'
   },
   restaurants: {
     singular: 'Restaurant',
@@ -124,8 +126,8 @@ exports.categories = {
         excludedTypes: [],
         category: 'restaurants'
       }),
-    emptyQueueAddEntityText: 'A restaurnat you want to eat in',
-    emptyLovedAddEntityText: 'A restaurnat you love'
+    emptyQueueAddEntityText: 'Add a restaurnat you want to eat in',
+    emptyLovedAddEntityText: 'Add your favorite restaurnat'
   },
   places: {
     singular: 'Place',
@@ -154,8 +156,8 @@ exports.categories = {
         excludedTypes: ['restaurants'],
         category: 'places'
       }),
-    emptyQueueAddEntityText: 'A place you want to go to',
-    emptyLovedAddEntityText: 'your favorite location'
+    emptyQueueAddEntityText: 'Add a place you want to go to',
+    emptyLovedAddEntityText: 'Add your favorite location'
   },
   links: {
     singular: 'Link',
