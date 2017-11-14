@@ -2,7 +2,7 @@
   "name": "knowledge",
   "version": "0.0.9",
   "scripts": {
-    "postinstall": "npx babel src --out-dir lib"
+    "preinstall": "npm install --ignore-scripts && babel src --out-dir lib"
   },
   "main": "lib/index.js",
   "dependencies": {
