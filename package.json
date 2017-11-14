@@ -2,7 +2,7 @@
   "name": "knowledge",
   "version": "0.0.9",
   "scripts": {
-    "install": "npx babel src --out-dir lib"
+    "install": "babel src --out-dir lib"
   },
   "main": "lib/index.js",
   "dependencies": {
