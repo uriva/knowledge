@@ -1,7 +1,10 @@
 {
   "name": "knowledge",
   "version": "0.0.9",
-  "scripts": {},
+  "scripts": {
+    "install": "babel src --out-dir lib"
+  },
+  "main": "lib/index.js",
   "dependencies": {
     "cross-fetch": "0.0.8",
     "geolib": "^2.0.22",
