@@ -2,7 +2,7 @@
   "name": "knowledge",
   "version": "0.0.9",
   "scripts": {
-    "install": "babel src --out-dir lib"
+    "postinstall": "babel src --out-dir lib"
   },
   "main": "lib/index.js",
   "dependencies": {
