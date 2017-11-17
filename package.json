@@ -1,10 +1,7 @@
 {
   "name": "knowledge",
   "version": "0.0.9",
-  "scripts": {
-    "preinstall": "npm install --ignore-scripts && babel src --out-dir lib"
-  },
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "dependencies": {
     "cross-fetch": "0.0.8",
     "geolib": "^2.0.24",
@@ -13,12 +10,5 @@
     "react-native-link-preview": "^1.2.2",
     "strip": "^3.0.0",
     "valid-url": "^1.0.9"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react-native": "^4.0.0"
   }
 }
