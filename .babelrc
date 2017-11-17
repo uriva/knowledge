@@ -1,15 +1,4 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": ["last 2 versions"]
-        }
-      }
-    ],
-    "stage-0",
-    "react"
-  ],
+  "presets": [["env"], "react"],
   "plugins": ["transform-object-rest-spread"]
 }
