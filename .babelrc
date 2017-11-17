@@ -4,10 +4,12 @@
       "env",
       {
         "targets": {
-          "browsers": ["last 2 versions", "safari >= 7"]
+          "browsers": ["last 2 versions"]
         }
       }
-    ]
+    ],
+    "stage-0",
+    "react"
   ],
   "plugins": ["transform-object-rest-spread"]
 }
