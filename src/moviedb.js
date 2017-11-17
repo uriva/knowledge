@@ -84,7 +84,7 @@ const getResultsByPopularity = (response, limit) => {
     .slice(0, limit || 5);
 };
 
-getRecommendationsWithPage = async (
+const getRecommendationsWithPage = async (
   mdbFunction,
   getBasicInfoFunction,
   existingEntities,
