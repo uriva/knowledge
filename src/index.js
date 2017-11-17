@@ -1,4 +1,3 @@
-require('babel-polyfill');
 const linkPreview = require('./linkPreview');
 const movieDb = require('./moviedb');
 const places = require('./places');
