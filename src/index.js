@@ -46,7 +46,7 @@ const GOOGLE_ATTRIBUTION = {
   height: 8
 };
 
-exports.getDetails = function({ id, category }) {
+exports.getDetails = function getDetails({ id, category }) {
   return exports.categories[category].idToEntityFunction(id);
 };
 
