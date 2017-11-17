@@ -7,7 +7,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "cross-fetch": "0.0.8",
-    "geolib": "^2.0.22",
+    "geolib": "^2.0.24",
     "get-youtube-id": "^1.0.0",
     "moviedb": "^0.2.8",
     "react-native-link-preview": "github:uriva/react-native-link-preview",
