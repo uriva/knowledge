@@ -10,7 +10,7 @@
     "geolib": "^2.0.24",
     "get-youtube-id": "^1.0.0",
     "moviedb": "^0.2.8",
-    "react-native-link-preview": "github:uriva/react-native-link-preview",
+    "react-native-link-preview": "^1.2.2",
     "strip": "^3.0.0",
     "valid-url": "^1.0.9"
   },
