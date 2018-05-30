@@ -4,13 +4,13 @@ const geolocate = require('./geolocate');
 const { fetch } = require('cross-fetch');
 let TOKEN;
 
-exports.init = function() {
+exports.init = function () {
   TOKEN = require('./tokens').tokens.gmaps;
 };
 
 // Prepare a link with all needed details to call the places API.
 // We sometimes want just the URL for future requests, so this function doesn't perform the call itself.
-const makeUrlWithParams = function(action, params, parseJson) {
+const makeUrlWithParams = function (action, params, parseJson) {
   const searchParams = ['key=' + TOKEN];
   Object.keys(params).forEach(k => {
     if (typeof params[k] != 'undefined') {
@@ -23,7 +23,7 @@ const makeUrlWithParams = function(action, params, parseJson) {
 };
 
 // Prepare a link, do the request and return the parsed response.
-const doRequest = function(action, params, parseJson = true) {
+const doRequest = function (action, params, parseJson = true) {
   return fetch(makeUrlWithParams(action, params, parseJson), {
     method: 'GET',
     headers: {
@@ -48,10 +48,10 @@ const doRequest = function(action, params, parseJson = true) {
 const getPictureSource = (result, maxwidth = 500) =>
   result.photos && result.photos.length
     ? makeUrlWithParams(
-        'photo',
-        { photoreference: result.photos[0].photo_reference, maxwidth },
-        false
-      )
+      'photo',
+      { photoreference: result.photos[0].photo_reference, maxwidth },
+      false
+    )
     : undefined;
 
 // Given a Google Maps response and location, returns a nice description string with:
@@ -100,29 +100,29 @@ const mapSearchResultsToEntities = (response, limit, category, excludedTypes) =>
   !response.results
     ? []
     : response.results
-        .filter(
-          result =>
-            !excludedTypes.some(excludedType =>
-              result.types.includes(excludedType)
-            )
-        )
-        .slice(0, limit || 5)
-        .map(result => ({
-          id: result.place_id,
-          title: result.name,
-          category,
-          description: createDescription(result, geolocate.get()),
-          location: result.geometry.location,
-          bigPictureSource: getPictureSource(result),
-          smallPictureSource: getPictureSource(result, 100)
-        }));
+      .filter(
+        result =>
+          result.types && !excludedTypes.some(excludedType =>
+            result.types.includes(excludedType)
+          )
+      )
+      .slice(0, limit || 5)
+      .map(result => ({
+        id: result.place_id,
+        title: result.name,
+        category,
+        description: createDescription(result, geolocate.get()),
+        location: result.geometry.location,
+        bigPictureSource: getPictureSource(result),
+        smallPictureSource: getPictureSource(result, 100)
+      }));
 
 const getLocationParam = () => {
   const currentLocation = geolocate.get();
   return currentLocation.coords
     ? [currentLocation.coords.latitude, currentLocation.coords.longitude].join(
-        ','
-      )
+      ','
+    )
     : undefined;
 };
 
