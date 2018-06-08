@@ -49,7 +49,7 @@ exports.getDetails = function getDetails({ id, category }) {
   return exports.categories[category].idToEntityFunction(id);
 };
 
-exports.search = function search(query) {
+exports.search = async function search(query) {
   let results = await Promise.all(
     Object.keys(exports.categories).map(categoryKey =>
       exports.categories[categoryKey].entityQueryFunction(query)
