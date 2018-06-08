@@ -2,6 +2,7 @@ const strip = require('strip');
 
 const { makeCachedFunction } = require('./cache');
 const { makeRetryableFunction } = require('./retry');
+const { fetch } = require('cross-fetch');
 
 const doRequest = function(append) {
   const url = `https://www.googleapis.com/books/v1/volumes${append}`;
