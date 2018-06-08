@@ -49,6 +49,22 @@ exports.getDetails = function getDetails({ id, category }) {
   return exports.categories[category].idToEntityFunction(id);
 };
 
+exports.search = function search(query) {
+  let results = await Promise.all(
+    Object.keys(exports.categories).map(categoryKey =>
+      exports.categories[categoryKey].entityQueryFunction(query)
+    )
+  );
+  const merged = [];
+  while (results.length){
+    results = results.filter(perCategoryResults => perCategoryResults.length);
+    for (const perCategoryResults of results) {
+      merged.push(perCategoryResults.shift());
+    }
+  }
+  return merged;
+};
+
 exports.categories = {
   movies: {
     singular: 'Movie',
