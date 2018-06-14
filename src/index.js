@@ -56,7 +56,7 @@ exports.search = async function search({ query }) {
     )
   );
   const merged = [];
-  while (results.length){
+  while (results.length) {
     results = results.filter(perCategoryResults => perCategoryResults.length);
     for (const perCategoryResults of results) {
       merged.push(perCategoryResults.shift());
