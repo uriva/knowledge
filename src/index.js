@@ -12,7 +12,6 @@ const {
 const { placeInfo, searchPlace, searchWithoutQuery } = require('./places');
 const { bookInfo, searchBook } = require('./books');
 const cache = require('./cache');
-const geolocate = require('./geolocate');
 const tokens = require('./tokens');
 
 exports.setTokens = function(givenTokens) {
@@ -26,9 +25,6 @@ exports.setAsyncStorage = function(storage) {
 };
 exports.setCacheTtl = function(ttl) {
   cache.ttl = ttl;
-};
-exports.setGeolocateFunction = function(func) {
-  geolocate.setGeolocate(func);
 };
 
 const TMDB_ATTRIBUTION = {
