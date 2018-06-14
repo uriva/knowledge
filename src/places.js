@@ -56,19 +56,12 @@ const getPictureSource = (result, maxwidth = 500) =>
 
 // Given a Google Maps response and location, returns a nice description string with:
 // - current open status
-// - distance
-const createDescription = (result, coords) => {
-  let ret = !result.opening_hours
+const createDescription = result => {
+  return !result.opening_hours
     ? 'Opening hours unknown'
     : result.opening_hours.open_now
       ? 'Open now'
       : 'Closed now';
-
-  if (coords) {
-    const distance = geolib.getDistance(coords, result.geometry.location);
-    ret += ', ' + (distance / 1000).toFixed(1) + ' KM';
-  }
-  return ret;
 };
 
 // A cached data requester based on place ID.
@@ -81,14 +74,13 @@ exports.placeInfo = async (placeid, category) => {
   if (!result) {
     return Promise.reject();
   }
-  const currentLocation = geolocate.get();
+  const { coords } = geolocate.get();
   return {
     id: placeid,
     title: result.name,
     category,
     link: result.url,
-    locationComplete: currentLocation.coords,
-    description: createDescription(result, currentLocation.coords),
+    description: createDescription(result),
     location: result.geometry.location,
     bigPictureSource: getPictureSource(result),
     smallPictureSource: getPictureSource(result, 100)
@@ -111,18 +103,14 @@ const mapSearchResultsToEntities = (response, limit, category, excludedTypes) =>
           id: result.place_id,
           title: result.name,
           category,
-          description: createDescription(result, geolocate.get().coords),
+          description: createDescription(result),
           location: result.geometry.location,
           bigPictureSource: getPictureSource(result),
           smallPictureSource: getPictureSource(result, 100)
         }));
 
-const getLocationParam = currentLocation => {
-  return currentLocation.coords
-    ? [currentLocation.coords.latitude, currentLocation.coords.longitude].join(
-        ','
-      )
-    : undefined;
+const getLocationParam = coords => {
+  return coords ? [coords.latitude, coords.longitude].join(',') : undefined;
 };
 
 // Returns an object with processed results, filtered against excludedPlaces and a recursion call for next pages.
@@ -161,7 +149,7 @@ const basicSearch = async (
   excludedPlaces,
   category
 ) => {
-  const location = getLocationParam(geolocate.get());
+  const location = getLocationParam(geolocate.get().coords);
   return basicSearchHelperRecursion(
     await doRequest('textsearch', {
       location,
