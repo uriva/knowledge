@@ -117,8 +117,7 @@ const mapSearchResultsToEntities = (response, limit, category, excludedTypes) =>
           smallPictureSource: getPictureSource(result, 100)
         }));
 
-const getLocationParam = () => {
-  const currentLocation = geolocate.get();
+const getLocationParam = currentLocation => {
   return currentLocation.coords
     ? [currentLocation.coords.latitude, currentLocation.coords.longitude].join(
         ','
@@ -157,13 +156,13 @@ const basicSearchHelperRecursion = (
 
 const basicSearch = async (
   query,
-  location,
   types,
   excludedTypes,
   excludedPlaces,
   category
-) =>
-  basicSearchHelperRecursion(
+) => {
+  const location = getLocationParam(geolocate.get());
+  return basicSearchHelperRecursion(
     await doRequest('textsearch', {
       location,
       query,
@@ -177,18 +176,12 @@ const basicSearch = async (
     },
     category
   );
+};
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
 exports.searchPlace = async ({ query, types, excludedTypes, category }) =>
-  (await basicSearch(
-    query,
-    getLocationParam(),
-    types,
-    excludedTypes,
-    [],
-    category
-  )).results;
+  (await basicSearch(query, types, excludedTypes, [], category)).results;
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
@@ -200,7 +193,6 @@ exports.searchWithoutQuery = async ({
 }) => {
   const ret = await basicSearch(
     '',
-    getLocationParam(),
     types,
     excludedTypes,
     excludedPlaces,
