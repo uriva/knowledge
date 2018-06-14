@@ -57,18 +57,15 @@ const getPictureSource = (result, maxwidth = 500) =>
 // Given a Google Maps response and location, returns a nice description string with:
 // - current open status
 // - distance
-const createDescription = (result, location) => {
+const createDescription = (result, coords) => {
   let ret = !result.opening_hours
     ? 'Opening hours unknown'
     : result.opening_hours.open_now
       ? 'Open now'
       : 'Closed now';
 
-  if (location.coords) {
-    const distance = geolib.getDistance(
-      location.coords,
-      result.geometry.location
-    );
+  if (coords) {
+    const distance = geolib.getDistance(coords, result.geometry.location);
     ret += ', ' + (distance / 1000).toFixed(1) + ' KM';
   }
   return ret;
@@ -91,7 +88,7 @@ exports.placeInfo = async (placeid, category) => {
     category,
     link: result.url,
     locationComplete: currentLocation.coords,
-    description: createDescription(result, currentLocation),
+    description: createDescription(result, currentLocation.coords),
     location: result.geometry.location,
     bigPictureSource: getPictureSource(result),
     smallPictureSource: getPictureSource(result, 100)
@@ -114,7 +111,7 @@ const mapSearchResultsToEntities = (response, limit, category, excludedTypes) =>
           id: result.place_id,
           title: result.name,
           category,
-          description: createDescription(result, geolocate.get()),
+          description: createDescription(result, geolocate.get().coords),
           location: result.geometry.location,
           bigPictureSource: getPictureSource(result),
           smallPictureSource: getPictureSource(result, 100)
