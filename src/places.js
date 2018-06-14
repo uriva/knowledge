@@ -1,6 +1,5 @@
 const { makeCachedFunction } = require('./cache');
 const geolib = require('geolib');
-const geolocate = require('./geolocate');
 const { fetch } = require('cross-fetch');
 let TOKEN;
 
@@ -74,7 +73,6 @@ exports.placeInfo = async (placeid, category) => {
   if (!result) {
     return Promise.reject();
   }
-  const { coords } = geolocate.get();
   return {
     id: placeid,
     title: result.name,
@@ -144,12 +142,13 @@ const basicSearchHelperRecursion = (
 
 const basicSearch = async (
   query,
+  coords,
   types,
   excludedTypes,
   excludedPlaces,
   category
 ) => {
-  const location = getLocationParam(geolocate.get().coords);
+  const location = getLocationParam(coords);
   return basicSearchHelperRecursion(
     await doRequest('textsearch', {
       location,
@@ -168,12 +167,20 @@ const basicSearch = async (
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY_HERE&location=32.0853%2C34.7818&query=mac&type=restaurant
-exports.searchPlace = async ({ query, types, excludedTypes, category }) =>
-  (await basicSearch(query, types, excludedTypes, [], category)).results;
+exports.searchPlace = async ({
+  query,
+  coords,
+  types,
+  excludedTypes,
+  category
+}) =>
+  (await basicSearch(query, coords, types, excludedTypes, [], category))
+    .results;
 
 // Response example:
 // https://maps.googleapis.com/maps/api/place/textsearch/json?key=API_KEY&location=32.0853%2C34.7818&type=restaurant
 exports.searchWithoutQuery = async ({
+  coords,
   excludedPlaces,
   types,
   excludedTypes,
@@ -181,6 +188,7 @@ exports.searchWithoutQuery = async ({
 }) => {
   const ret = await basicSearch(
     '',
+    coords,
     types,
     excludedTypes,
     excludedPlaces,

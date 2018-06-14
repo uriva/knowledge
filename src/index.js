@@ -49,10 +49,10 @@ exports.getDetails = function getDetails({ id, category }) {
   return exports.categories[category].idToEntityFunction(id);
 };
 
-exports.search = async function search({ query }) {
+exports.search = async function search({ query, coords }) {
   let results = await Promise.all(
     Object.keys(exports.categories).map(categoryKey =>
-      exports.categories[categoryKey].entityQueryFunction(query)
+      exports.categories[categoryKey].entityQueryFunction(query, coords)
     )
   );
   const merged = [];
@@ -125,8 +125,9 @@ exports.categories = {
     emoji: '🍽️',
     askForMoreFiller: 'Looking for new vegan options!',
     idToEntityFunction: id => placeInfo(id, 'restaurants'),
-    entityQueryFunction: query =>
+    entityQueryFunction: (query, coords) =>
       searchPlace({
+        coords,
         query,
         types: ['restaurant'],
         excludedTypes: [],
@@ -135,8 +136,9 @@ exports.categories = {
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
-    zeroPrefixFunction: excludedPlaces =>
+    zeroPrefixFunction: (excludedPlaces, coords) =>
       searchWithoutQuery({
+        coords,
         excludedPlaces,
         types: ['restaurant'],
         excludedTypes: [],
@@ -155,8 +157,9 @@ exports.categories = {
     emoji: '📍',
     askForMoreFiller: 'Looking for cool places to see in Amsterdam!',
     idToEntityFunction: id => placeInfo(id, 'places'),
-    entityQueryFunction: query =>
+    entityQueryFunction: (query, coords) =>
       searchPlace({
+        coords,
         query,
         types: [],
         category: 'places',
@@ -165,8 +168,9 @@ exports.categories = {
     itemsNeedLocation: true,
     useNativeLinking: true,
     attribution: GOOGLE_ATTRIBUTION,
-    zeroPrefixFunction: excludedPlaces =>
+    zeroPrefixFunction: (excludedPlaces, coords) =>
       searchWithoutQuery({
+        coords,
         excludedPlaces,
         types: ['museum', 'night_club', 'park'],
         excludedTypes: ['restaurants'],
