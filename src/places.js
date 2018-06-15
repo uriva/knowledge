@@ -1,6 +1,7 @@
 const { makeCachedFunction } = require('./cache');
 const geolib = require('geolib');
 const { fetch } = require('cross-fetch');
+const utf8 = require('utf8');
 let TOKEN;
 
 exports.init = function() {
@@ -16,9 +17,11 @@ const makeUrlWithParams = function(action, params, parseJson) {
       searchParams.push(k + '=' + params[k]);
     }
   });
-  return `https://maps.googleapis.com/maps/api/place/${action}${
-    parseJson ? '/json' : ''
-  }?${searchParams.join('&')}`;
+  return utf8.encode(
+    `https://maps.googleapis.com/maps/api/place/${action}${
+      parseJson ? '/json' : ''
+    }?${searchParams.join('&')}`
+  );
 };
 
 // Prepare a link, do the request and return the parsed response.
