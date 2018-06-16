@@ -45,9 +45,9 @@ exports.getDetails = function getDetails({ id, category }) {
   return exports.categories[category].idToEntityFunction(id);
 };
 
-exports.search = async function search({ query, coords }) {
+exports.search = async function search({ query, coords, categories }) {
   let results = await Promise.all(
-    Object.keys(exports.categories).map(categoryKey =>
+    categories.map(categoryKey =>
       exports.categories[categoryKey].entityQueryFunction(query, coords)
     )
   );
