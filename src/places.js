@@ -59,11 +59,14 @@ const getPictureSource = (result, maxwidth = 500) =>
 // Given a Google Maps response and location, returns a nice description string with:
 // - current open status
 const createDescription = result => {
-  return !result.opening_hours
-    ? 'Opening hours unknown'
-    : result.opening_hours.open_now
-      ? 'Open now'
-      : 'Closed now';
+  return (
+    result.formatted_address +
+    (result.opening_hours
+      ? result.opening_hours.open_now
+        ? ', now open.'
+        : ', now closed.'
+      : '')
+  );
 };
 
 // A cached data requester based on place ID.
