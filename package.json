@@ -9,6 +9,7 @@
     "moviedb": "^0.2.8",
     "react-native-link-preview": "^1.2.2",
     "strip": "^3.0.0",
+    "unirest": "^0.5.1",
     "utf8": "^3.0.0",
     "valid-url": "^1.0.9"
   }

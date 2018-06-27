@@ -11,6 +11,7 @@ const {
 } = require('./moviedb');
 const { placeInfo, searchPlace, searchWithoutQuery } = require('./places');
 const { bookInfo, searchBook } = require('./books');
+const { podcastInfo, podcastSearch } = require('./podcasts');
 const cache = require('./cache');
 const tokens = require('./tokens');
 
@@ -74,9 +75,7 @@ exports.categories = {
     idToEntityFunction: movieInfo,
     entityQueryFunction: searchMovie,
     zeroPrefixFunction: getMovieRecommendations,
-    attribution: TMDB_ATTRIBUTION,
-    emptyQueueAddEntityText: 'Add a movie you want to watch',
-    emptyLovedAddEntityText: 'Add your favorite movie'
+    attribution: TMDB_ATTRIBUTION
   },
   tv: {
     singular: 'Show',
@@ -92,9 +91,20 @@ exports.categories = {
     idToEntityFunction: tvInfo,
     entityQueryFunction: searchTv,
     attribution: TMDB_ATTRIBUTION,
-    zeroPrefixFunction: getTvRecommendations,
-    emptyQueueAddEntityText: 'Add a TV show to binge',
-    emptyLovedAddEntityText: 'Add your favorite TV show'
+    zeroPrefixFunction: getTvRecommendations
+  },
+  podcasts: {
+    singular: 'Podcast',
+    visibleName: 'Podcasts',
+    plural: 'Podcasts',
+    queueTitle: 'Podcasts to listen to',
+    icon: 'headset',
+    emoji: '🎧',
+    iconFamily: 'Ionicons',
+    askForMoreFiller: 'In need of a good podcast to listen on my commute :)',
+    idToEntityFunction: podcastInfo,
+    entityQueryFunction: podcastSearch,
+    attribution: null
   },
   books: {
     singular: 'Book',
@@ -107,9 +117,7 @@ exports.categories = {
     askForMoreFiller: 'Anything but bestsellers please :)',
     idToEntityFunction: bookInfo,
     entityQueryFunction: searchBook,
-    attribution: GOOGLE_ATTRIBUTION,
-    emptyQueueAddEntityText: 'Add a book you want to read',
-    emptyLovedAddEntityText: 'Add your favorite book'
+    attribution: GOOGLE_ATTRIBUTION
   },
   restaurants: {
     singular: 'Restaurant',
@@ -139,9 +147,7 @@ exports.categories = {
         types: ['restaurant'],
         excludedTypes: [],
         category: 'restaurants'
-      }),
-    emptyQueueAddEntityText: 'Add a restaurnat you want to eat in',
-    emptyLovedAddEntityText: 'Add your favorite restaurnat'
+      })
   },
   places: {
     singular: 'Place',
@@ -171,9 +177,7 @@ exports.categories = {
         types: ['museum', 'night_club', 'park'],
         excludedTypes: ['restaurants'],
         category: 'places'
-      }),
-    emptyQueueAddEntityText: 'Add a place you want to go to',
-    emptyLovedAddEntityText: 'Add your favorite location'
+      })
   },
   links: {
     singular: 'Link',
@@ -185,8 +189,6 @@ exports.categories = {
     iconFamily: 'Ionicons',
     idToEntityFunction: linkPreview.getLinkInfo,
     askForMoreFiller: 'Looking for interesting articles',
-    entityQueryFunction: linkPreview.searchLink,
-    emptyQueueAddEntityText: 'Paste a link to check out later',
-    emptyLovedAddEntityText: 'Paste your favorite link'
+    entityQueryFunction: linkPreview.searchLink
   }
 };
