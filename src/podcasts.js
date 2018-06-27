@@ -2,7 +2,7 @@ const unirest = require('unirest');
 
 const { makeCachedFunction } = require('./cache');
 const { makeRetryableFunction } = require('./retry');
-const { mashape } = require('./tokens');
+const { tokens } = require('./tokens');
 
 const podcastSearch = function(query) {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ const podcastSearch = function(query) {
       .get(
         `https://listennotes.p.mashape.com/api/v1/search?q=${query}&type=episode`
       )
-      .header('X-Mashape-Key', mashape)
+      .header('X-Mashape-Key', tokens.mashape)
       .header('Accept', 'application/json')
       .end(result => {
         resolve(
