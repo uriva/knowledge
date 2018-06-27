@@ -1,5 +1,3 @@
-const { fetch } = require('cross-fetch');
-const itunes = require('itunes-search');
 const unirest = require('unirest');
 
 const { makeCachedFunction } = require('./cache');
