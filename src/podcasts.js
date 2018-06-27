@@ -14,7 +14,7 @@ const podcastSearch = function(query) {
       .header('Accept', 'application/json')
       .end(result => {
         resolve(
-          result.body.results.map(x => ({
+          (result.body.results || []).map(x => ({
             id: x.id,
             title: x.title_original,
             category: 'podcasts',
