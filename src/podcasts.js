@@ -37,7 +37,7 @@ const podcastInfo = function(id) {
   return new Promise((resolve, reject) => {
     unirest
       .get('https://listennotes.p.mashape.com/api/v1/episodes/' + id)
-      .header('X-Mashape-Key', mashape)
+      .header('X-Mashape-Key', tokens.mashape)
       .header('Accept', 'application/json')
       .end(result => {
         const data = result.body;
