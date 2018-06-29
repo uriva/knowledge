@@ -98,7 +98,7 @@ exports.categories = {
     visibleName: 'Podcasts',
     plural: 'Podcasts',
     queueTitle: 'Podcasts to listen to',
-    icon: 'headset',
+    icon: 'md-headset',
     emoji: '🎧',
     iconFamily: 'Ionicons',
     askForMoreFiller: 'In need of a good podcast to listen on my commute :)',
