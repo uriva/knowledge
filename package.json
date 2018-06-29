@@ -6,6 +6,7 @@
     "cross-fetch": "0.0.8",
     "geolib": "^2.0.24",
     "get-youtube-id": "^1.0.0",
+    "html2plaintext": "^2.0.1",
     "moviedb": "^0.2.8",
     "react-native-link-preview": "^1.2.2",
     "strip": "^3.0.0",

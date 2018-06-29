@@ -1,4 +1,5 @@
 const unirest = require('unirest');
+const h2p = require('html2plaintext');
 
 const { makeCachedFunction } = require('./cache');
 const { makeRetryableFunction } = require('./retry');
@@ -19,7 +20,7 @@ const podcastSearch = function(query) {
             title: x.title_original,
             category: 'podcasts',
             link: x.audio,
-            description: x.description_original,
+            description: h2p(x.description_original),
             bigPictureSource: x.image,
             smallPictureSource: x.image
           }))
@@ -46,7 +47,7 @@ const podcastInfo = function(id) {
           title: data.title,
           category: 'podcasts',
           link: data.audio,
-          description: data.description,
+          description: h2p(data.description),
           bigPictureSource: data.podcast.image,
           smallPictureSource: data.podcast.image
         });
